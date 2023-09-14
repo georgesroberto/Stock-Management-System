@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {{ get_header }}
+
+    {% for list in items%}
+        <br><br>{{list.item_name}}<br>
+        {{ list.quantity }}
+    {%endfor%}
+
+{% endblock content %}
