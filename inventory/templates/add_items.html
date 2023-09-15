@@ -5,6 +5,7 @@
 {% block content %}
 
 <form method='POST' action=''>
+    <h2 class="p-3">{{ title }}</h2>
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value='Save'/>

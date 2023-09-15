@@ -3,4 +3,52 @@
 body {
   min-height: 75rem;
   padding-top: 4.5rem;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+/*Align the title to the center of the page*/
+.table{
+	font-size: 13px;
+	text-align: center;
+	width: 95%;
+	margin: auto;
+	text-align: center;
+}
+
+/*Make alternating colors for the table rows*/
+.table tr:nth-child(odd){
+	background: #9eb3d1;
+}
+
+.table tr:nth-child(even){
+	background: #d6e1ef;
+}
+
+th {
+  background-color: #296fac;
+  color: white;
+}
+
+td{
+	color: #000000;
+}
+
+.display_table{
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 20px;
+	box-shadow: 12px 12px 20px 6px #0c477a;
+}
+
+.header {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #337ab7;
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
 }

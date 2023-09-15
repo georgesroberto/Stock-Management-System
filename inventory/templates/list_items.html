@@ -1,12 +1,56 @@
 {% extends "base.html" %}
 
+{% load bootstrap5 %}
+
 {% block content %}
+    <div class="header pt-0">
+        {{title}}
+    </div>
 
-    {{ get_header }}
+    <form method='POST' action='' class="pr-4">
+        {% csrf_token %}
+        <div class="row">
 
-    {% for list in items%}
-        <br><br>{{list.item_name}}<br>
-        {{ list.quantity }}
-    {%endfor%}
+            {{ form.media }}
+            {% for field in form %}
+            <div class="col-sm-6 form-group">
+             {% bootstrap_field field %}
+         
+            </div>
+            {% endfor %}
+
+            </div>
+        <input type="submit" value='Search'/>
+    </form>
+   <br>
+
+    <div class="display-table">
+        <table class='table'>
+            <thead>
+            <tr>
+                <th>COUNT</th>
+                <th>CATEGORY</th>
+                <th>ITEM NAME</th>
+                <th>QTY IN STORE</th>
+                <th>DELETE</th>
+            </tr>
+            </thead>
+          
+           
+           
+        {% for instance in items %}
+       
+            <tr class="text-left">
+                
+                <td>{{forloop.counter}}</td>
+                <td>{{instance.category}}</td>
+                <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
+                <td>{{instance.quantity}}</td>
+                <td><a href="{% url 'delete_item' instance.id %}">Delete</a></td>
+            </tr>
+       
+        {% endfor %}
+        </table>
+    </div>
 
 {% endblock content %}
