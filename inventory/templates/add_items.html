@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
+{% load bootstrap5 %}
 
 {% block content %}
 
 <form method='POST' action=''>
-    <h2 class="p-3">{{ title }}</h2>
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value='Save'/>
+    <div class="row">
+        {{ form.media }}
+        {% for field in form %}
+        <div class="col-md-6">
+            {% bootstrap_field field %}
+        </div>
+        {% endfor %}
+    </div>    
+
+    <input type="submit" value='Save' class="btn-outline-info"/>
 </form>
 
 {% endblock content %}
