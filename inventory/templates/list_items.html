@@ -9,9 +9,7 @@
 
     <form method='POST' action='' class="pr-4">
         {% csrf_token %}
-        <div class="row">
-
-            {{ form.media }}
+        <div class="row">  
             {% for field in form %}
             <div class="col-sm-6 form-group">
              {% bootstrap_field field %}
@@ -41,7 +39,6 @@
         {% for instance in items %}
        
             <tr class="text-left">
-                
                 <td>{{forloop.counter}}</td>
                 <td>{{instance.category}}</td>
                 <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
