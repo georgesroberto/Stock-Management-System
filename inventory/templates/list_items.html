@@ -31,27 +31,34 @@
    <br>
 
     <div class="display-table">
-        <table class='table'>
+        <table class="table">
             <thead>
             <tr>
                 <th>COUNT</th>
+                <th>ID</th>
                 <th>CATEGORY</th>
                 <th>ITEM NAME</th>
                 <th>QTY IN STORE</th>
+                <th>Timestamp</th>
+                <th>Last Updated</th>
                 <th>DELETE</th>
+                <th>Date</th>
             </tr>
             </thead>
  
         {% for instance in items %}
        
-            <tr class="text-left">
+            <tr class="text-center">
                 <td>{{forloop.counter}}</td>
+                <td>{{ instance.id }}</td>
                 <td>{{instance.category}}</td>
                 <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
-                <td>{{instance.quantity}}</td>
+                <td><a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a></td>
+                <td>{{ instance.timestamp }}</td>
+                <td>{{ instance.last_updated }}</td>
                 <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
-            </tr>
-       
+                <td>{{ instance.date }}</td>
+            </tr>      
         {% endfor %}
         </table>
     </div>

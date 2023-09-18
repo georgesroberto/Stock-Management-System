@@ -1,7 +1,8 @@
 from django.shortcuts import HttpResponse, render, redirect, get_object_or_404
-from .models import Stock
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm
+from .models import *
+from .forms import *
 from django.contrib import messages
+from .forms import *
 import csv
 
 def home(request):
@@ -17,7 +18,7 @@ def list_items(request):
     if request.method == 'POST':
         category = form['category'].value()
         item_name = form['item_name'].value()
-        stockList = Stock.objects.filter(category__icontains=category, item_name__icontains=item_name)
+        stockList = Stock.objects.filter(category__name__icontains=category, item_name__icontains=item_name)
 
         if form['export_to_CSV'].value() == True:
             response = HttpResponse(content_type='text/csv')
@@ -39,17 +40,27 @@ def list_items(request):
 
 def add_items(request):
     form = StockCreateForm(request.POST or None)
+
     if form.is_valid():
-        form.save()
+        item_name = form.cleaned_data['item_name']
+        category_name = form.cleaned_data['category']
+
+        # Check if the category already exists
+        existing_category, created = Category.objects.get_or_create(name=category_name)
+
+        # Create the new item with the existing or new category
+        Stock.objects.create(item_name=item_name, category=existing_category)
+
         messages.success(request, 'Successfully Saved')
-        return redirect('list_items')  # Use the named URL 'list_items'
+        return redirect('list_items')
 
     context = {
         "form": form,
         "title": "Add Item",
     }
-    
+
     return render(request, 'add_items.html', context)
+
 
 def update_item(request, pk):
     stockList = get_object_or_404(Stock, id=pk)
@@ -76,3 +87,50 @@ def delete_item(request, pk):
         return redirect('/list_items')  # Use the named URL 'list_items'
     
     return render(request, 'delete_item.html')
+
+def stock_detail(request, pk):
+	queryset = Stock.objects.get(id=pk)
+	context = {
+		"queryset": queryset,
+	}
+	return render(request, "stock_detail.html", context)
+
+def issue_items(request, pk):
+	queryset = Stock.objects.get(id=pk)
+	form = IssueForm(request.POST or None, instance=queryset)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.quantity -= instance.issue_quantity
+		instance.issue_by = str(request.user)
+		messages.success(request, "Issued SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now left in Store")
+		instance.save()
+
+		return redirect('/stock_detail/'+str(instance.id))
+		# return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": 'Issue ' + str(queryset.item_name),
+		"queryset": queryset,
+		"form": form,
+		"username": 'Issue By: ' + str(request.user),
+	}
+	return render(request, "add_items.html", context)
+
+def receive_items(request, pk):
+	queryset = Stock.objects.get(id=pk)
+	form = ReceiveForm(request.POST or None, instance=queryset)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.quantity += instance.receive_quantity
+		instance.save()
+		messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name)+"s now in Store")
+
+		return redirect('/stock_detail/'+str(instance.id))
+		# return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+			"title": 'Reaceive ' + str(queryset.item_name),
+			"instance": queryset,
+			"form": form,
+			"username": 'Receive By: ' + str(request.user),
+		}
+	return render(request, "add_items.html", context)
