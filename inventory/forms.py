@@ -14,7 +14,6 @@ class StockCreateForm(forms.ModelForm):
         # Check if the category already exists in the database
         if Stock.objects.filter(category=category).exists():
             raise forms.ValidationError(str(category) + '  already exits')
-
         return category
 
     def clean_item_name(self):
@@ -24,6 +23,7 @@ class StockCreateForm(forms.ModelForm):
         return item_name
 
 class StockSearchForm(forms.ModelForm):
+   export_to_CSV = forms.BooleanField(required = False)
    class Meta:
       model = Stock
       fields = ['category', 'item_name']
