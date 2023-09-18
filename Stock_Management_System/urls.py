@@ -24,5 +24,5 @@ urlpatterns = [
     path('list_items/',views.list_items, name='list_items'),
     path('add_items/', views.add_items, name='add_items'),
     path('update_item/<str:pk>/', views.update_item, name='update_item'),
-    path('delete_item/<str:pk>/', views.delete_item, name='delete_item'),
+    path('delete_item/<str:pk>/', views.delete_item, name='delete_items'),
 ]
