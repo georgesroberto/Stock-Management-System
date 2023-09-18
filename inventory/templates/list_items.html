@@ -39,6 +39,7 @@
                 <th>CATEGORY</th>
                 <th>ITEM NAME</th>
                 <th>QTY IN STORE</th>
+                <th>REORDER LEVEL</th>
                 <th>Timestamp</th>
                 <th>Last Updated</th>
                 <th>DELETE</th>
@@ -53,7 +54,16 @@
                 <td>{{ instance.id }}</td>
                 <td>{{instance.category}}</td>
                 <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
-                <td><a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a></td>
+                <td>
+                    {% if instance.quantity <= instance.reorder_level %}
+                    <div style="background-color: orange;">
+                        <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                    </div>
+                    {% else %}
+                        <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'reorder_level' instance.id %}">{{ instance.reorder_level }}</a></td>
                 <td>{{ instance.timestamp }}</td>
                 <td>{{ instance.last_updated }}</td>
                 <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
