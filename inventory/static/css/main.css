@@ -1,6 +1,7 @@
 
 /* Show it is fixed to the top */
 body {
+  background-image: url("../img/bg.jpg");
   min-height: 75rem;
   padding-top: 4.5rem;
   font-family:Georgia, 'Times New Roman', Times, serif;
@@ -141,4 +142,65 @@ td{
   color: white;
   box-shadow: 12px 12px 12px #e61c66;
   text-align: center;
+}
+/* Version Button */
+#version-display{
+  background-color: #e61c66;
+  color: white;
+  box-shadow: 5px 12px 12px #2e6da4;
+  text-align: center;
+  display: inline;
+  font-weight: bolder;
+  padding: 15px;
+  position: fixed;
+  top: 40px;
+  left: -5px;
+  z-index: 3000;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+
+
+/* Modal Header */
+.modal-header {
+  padding: 2px 16px;
+  background-color: #e61c66;
+  color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #e61c66;
+  color: white;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+
+.dev-info{
+  width: 50%;
+  text-align: center;
+  font-family: helvetica;
+  font-weight: bold;
+  display: inline;
+}
+
+.dev-info-logo{
+  width: 50px;
+  float: left;
 }
