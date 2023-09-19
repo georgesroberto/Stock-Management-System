@@ -15,16 +15,21 @@ Developing an SMIS
   - Exporting data that can be trained for further uses (DATA - AI)</p>
 <p>Developed with love by Dev Georges <a href="https://roberto-georges.vercel.app">(Portfolio)</p>
 
+## Web Preview
+Below is a short preview of how the system looks like:<br>
+![Preview](inventory/static/img/SMIS.png)
 
 ## Table of Contents
 1. Stock Management System
 2. About
-3. Table of Contents
-4. <a href="## Technologies">Technologies</a><br>
-   4.1 <a href="## Technologies">Languages</a><br>
-   4.2 <a href="## Technologies">Frameworks</a><br>
-5. User Journey
-6. Web Preview
+3. Web Preview
+4. Table of Contents
+5. <a href="## Technologies">Technologies</a><br>
+   - <a href="## Technologies">Languages</a><br>
+   - <a href="## Technologies">Frameworks</a><br>
+6. User Journey
+7. Contact
+8. Gratitude
    
 ## Technologies
 
@@ -44,10 +49,6 @@ Developing an SMIS
 5. They are also able to export specific lists in various formats eg CSV(EXcel)
 6. They are able to issue or receive particular items
 7. Ability to log out
-
-## Web Preview
-Below is a short preview of how the system looks like:<br>
-![Preview](inventory/static/main/SMIS.png)
 
 ## etc
 Contact the Developer:<br>
