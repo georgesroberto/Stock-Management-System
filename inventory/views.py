@@ -9,7 +9,7 @@ import csv
 def home(request):
     title = 'Welcome: This is the Home Page'
     context = {"title": title}
-    return render(request, "home.html", context)
+    return redirect('list_items/')
 
 @login_required
 def list_items(request):
@@ -100,7 +100,6 @@ def stock_detail(request, pk):
 	}
 	return render(request, "stock_detail.html", context)
 
-@login_required
 def issue_items(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = IssueForm(request.POST or None, instance=queryset)
@@ -122,7 +121,6 @@ def issue_items(request, pk):
 	}
 	return render(request, "add_items.html", context)
 
-@login_required
 def receive_items(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = ReceiveForm(request.POST or None, instance=queryset)
@@ -142,7 +140,6 @@ def receive_items(request, pk):
 		}
 	return render(request, "add_items.html", context)
 
-@login_required
 def reorder_level(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = ReorderLevelForm(request.POST or None, instance=queryset)
@@ -157,3 +154,14 @@ def reorder_level(request, pk):
 			"form": form,
 		}
 	return render(request, "add_items.html", context)
+
+@login_required
+def list_history(request):
+	header = 'LIST OF ITEMS'
+	queryset = StockHistory.objects.all()
+	context = {
+		"header": header,
+		"queryset": queryset,
+	}
+      
+	return render(request, "list_history.html",context)
