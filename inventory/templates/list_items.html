@@ -1,4 +1,4 @@
-{% extends "nav.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap5 %}
 
@@ -28,7 +28,7 @@
                     {% endfor %}
 
                     </div>
-                <input type="submit" value='Search'/>
+                <input class="btn btn-info" type="submit" value='Search'/>
             </form><br>
         </div>
 
@@ -36,16 +36,16 @@
             <div class="display-table">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>COUNT</th>
-                        <th>CATEGORY</th>
-                        <th>ITEM NAME</th>
-                        <th>QTY IN STORE</th>
-                        <th>REORDER LEVEL</th>
-                        <th>Timestamp</th>
-                        <th>Last Updated</th>
-                        <th>DELETE</th>
-                    </tr>
+                        <tr>
+                            <th>COUNT</th>
+                            <th>CATEGORY</th>
+                            <th>ITEM NAME</th>
+                            <th>QTY IN STORE</th>
+                            <th>REORDER LEVEL</th>
+                            <th>Timestamp</th>
+                            <th>Last Updated</th>
+                            <th>DELETE</th>
+                        </tr>
                     </thead>
         
                 {% for instance in items %}
@@ -64,7 +64,7 @@
                         <td><a href="{% url 'reorder_level' instance.id %}">{{ instance.reorder_level }}</a></td>
                         <td>{{ instance.timestamp }}</td>
                         <td>{{ instance.last_updated }}</td>
-                        <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
+                        <td data-toggle="tooltip" id="tooltip" title="Delete"><a href="{% url 'delete_items' instance.id %}"><i class="fas fa-trash red-bin"></i></a></td>
                     </tr>      
                 {% endfor %}
                 </table>

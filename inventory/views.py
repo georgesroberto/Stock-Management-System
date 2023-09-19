@@ -9,7 +9,7 @@ import csv
 def home(request):
     title = 'Welcome: This is the Home Page'
     context = {"title": title}
-    return redirect('list_items/')
+    return render(request, 'home.html/', context)
 
 @login_required
 def list_items(request):
@@ -18,10 +18,19 @@ def list_items(request):
     stockList = Stock.objects.all()
 
     if request.method == 'POST':
-        category = form['category'].value()
-        item_name = form['item_name'].value()
-        stockList = Stock.objects.filter(category__name__icontains=category, item_name__icontains=item_name)
+        category = request.POST.get('category')
+        item_name = request.POST.get('item_name')
+        
+        # Create an initial queryset
+        queryset = Stock.objects.all()
 
+        # Apply filters if provided
+        if category:
+            queryset = queryset.filter(category__name__icontains=category)
+        if item_name:
+            queryset = queryset.filter(item_name__icontains=item_name)
+
+        stockList = queryset
         if form['export_to_CSV'].value() == True:
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="List of stock.csv"'
@@ -86,11 +95,12 @@ def delete_item(request, pk):
     stock_instance = get_object_or_404(Stock, id=pk)
     
     if request.method == 'POST':
+        item_name = stock_instance.item_name
         stock_instance.delete()
-        messages.success(request, 'Successfully Deleted')
+        messages.success(request, f'Successfully Deleted: {item_name} ')
         return redirect('/list_items')  # Use the named URL 'list_items'
     
-    return render(request, 'delete_item.html')
+    return render(request, 'delete_item.html', {'stock_instance': stock_instance})
 
 @login_required
 def stock_detail(request, pk):

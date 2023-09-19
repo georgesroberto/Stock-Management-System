@@ -1,25 +1,23 @@
-{% extends "nav.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap5 %}
 
-{% block content %}
-
-<h1 class="p-4">{{ title }}</h1>
+{% block context %}
 
 <form method='POST' action=''>
     {% csrf_token %}
     <div class="container">
         <div class="row">
+            <h1 class="p-2">{{ title }}</h1>
             {{ form.media }}
             {% for field in form %}
-            <div class="col-sm-5">
+            <div class="col-12">
                 {% bootstrap_field field %}
             </div>
             {% endfor %}
+            <input class="btn btn-info" type="submit" value='Save' class="btn-outline-info"/>
         </div> 
-        
-        <input type="submit" value='Save' class="btn-outline-info"/>
     </div>   
 </form>
 
-{% endblock content %}
+{% endblock context %}

@@ -46,11 +46,12 @@ td{
 .header {
 	background-color: #296fac;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    color: #337ab7;
+    color: #0088ff;
     font-size: 50px;
     text-align: center;
     width: 100%;
-    text-shadow: 6px 6px 6px #c9c6c6;
+    text-shadow: 6px 6px 6px #f5f5f5
+    ;
     display: block;
     font-weight: bolder;
 }
@@ -143,6 +144,8 @@ td{
   box-shadow: 12px 12px 12px #e61c66;
   text-align: center;
 }
+
+
 /* Version Button */
 #version-display{
   background-color: #e61c66;
@@ -151,13 +154,25 @@ td{
   text-align: center;
   display: inline;
   font-weight: bolder;
-  padding: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 5px;
   position: fixed;
-  top: 40px;
-  left: -5px;
+  bottom: 0px;
+  left: -80px;
   z-index: 3000;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+}
+
+#version-display:hover{
+  left: 0px;
+  -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
 }
 
 
@@ -191,7 +206,6 @@ td{
 
 }
 
-
 .dev-info{
   width: 50%;
   text-align: center;
@@ -203,4 +217,8 @@ td{
 .dev-info-logo{
   width: 50px;
   float: left;
+}
+
+.red-bin{
+  color: rgb(199, 15, 15);
 }
