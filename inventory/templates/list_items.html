@@ -3,7 +3,7 @@
 {% load bootstrap5 %}
 
 {% block content %}
-    <div class="header pt-0">
+    <div class="header p-2 mb-3">
         {{title}}
     </div>
 
@@ -15,62 +15,60 @@
         </ul>
     {% endif %}
 
-    <form method='POST' action='' class="pr-4">
-        {% csrf_token %}
-        <div class="row">  
-            {% for field in form %}
-            <div class="col-sm-6 form-group">
-             {% bootstrap_field field %}
-         
-            </div>
-            {% endfor %}
-
-            </div>
-        <input type="submit" value='Search'/>
-    </form>
-   <br>
-
-    <div class="display-table">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>COUNT</th>
-                <th>ID</th>
-                <th>CATEGORY</th>
-                <th>ITEM NAME</th>
-                <th>QTY IN STORE</th>
-                <th>REORDER LEVEL</th>
-                <th>Timestamp</th>
-                <th>Last Updated</th>
-                <th>DELETE</th>
-                <th>Date</th>
-            </tr>
-            </thead>
- 
-        {% for instance in items %}
-       
-            <tr class="text-center">
-                <td>{{forloop.counter}}</td>
-                <td>{{ instance.id }}</td>
-                <td>{{instance.category}}</td>
-                <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
-                <td>
-                    {% if instance.quantity <= instance.reorder_level %}
-                    <div style="background-color: orange;">
-                        <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+    <div class="row">
+        <div class="col-2">
+            <form method='POST' action='' class="">
+                {% csrf_token %}
+                <div class="row">  
+                    {% for field in form %}
+                    <div class="form-group">
+                    {% bootstrap_field field %}
+                
                     </div>
-                    {% else %}
-                        <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
-                    {% endif %}
-                </td>
-                <td><a href="{% url 'reorder_level' instance.id %}">{{ instance.reorder_level }}</a></td>
-                <td>{{ instance.timestamp }}</td>
-                <td>{{ instance.last_updated }}</td>
-                <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
-                <td>{{ instance.date }}</td>
-            </tr>      
-        {% endfor %}
-        </table>
-    </div>
+                    {% endfor %}
 
+                    </div>
+                <input type="submit" value='Search'/>
+            </form><br>
+        </div>
+
+        <div class="col-10">
+            <div class="display-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>COUNT</th>
+                        <th>CATEGORY</th>
+                        <th>ITEM NAME</th>
+                        <th>QTY IN STORE</th>
+                        <th>REORDER LEVEL</th>
+                        <th>Timestamp</th>
+                        <th>Last Updated</th>
+                        <th>DELETE</th>
+                    </tr>
+                    </thead>
+        
+                {% for instance in items %}
+            
+                    <tr class="text-center">
+                        <td>{{forloop.counter}}</td>
+                        <td>{{instance.category}}</td>
+                        <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
+                        <td>
+                            {% if instance.quantity <= instance.reorder_level %}
+                                <a href="{% url 'stock_detail' instance.id %}" style="background-color: orange;">{{instance.quantity}}</a>
+                            {% else %}
+                                <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
+                            {% endif %}
+                        </td>
+                        <td><a href="{% url 'reorder_level' instance.id %}">{{ instance.reorder_level }}</a></td>
+                        <td>{{ instance.timestamp }}</td>
+                        <td>{{ instance.last_updated }}</td>
+                        <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
+                    </tr>      
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -1,0 +1,32 @@
+-- database: d:\Programming\Python\DJANGO\Stock_Management_System\db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+DROP TRIGGER IF EXISTS after_stockmgmt_stock_update;
+CREATE TRIGGER after_stockmgmt_stock_update AFTER UPDATE ON stockmgmgt_stock FOR EACH ROW
+BEGIN
+    INSERT INTO stockmgmgt_stockhistory (
+        id,
+        last_updated,
+        category_id,
+        item_name,
+        quantity,
+        receive_quantity,
+        receive_by,
+        issue_quantity,
+        issue_to,
+        issue_by
+    )
+    VALUES (
+        new.id,
+        new.last_updated,
+        new.category_id,
+        new.item_name,
+        CASE WHEN new.issue_quantity = 0 THEN new.quantity ELSE 0 END,
+        CASE WHEN new.issue_quantity = 0 THEN new.receive_quantity ELSE 0 END,
+        CASE WHEN new.issue_quantity = 0 THEN new.receive_by ELSE NULL END,
+        CASE WHEN new.receive_quantity = 0 THEN new.quantity ELSE 0 END,
+        CASE WHEN new.receive_quantity = 0 THEN new.issue_to ELSE NULL END,
+        CASE WHEN new.receive_quantity = 0 THEN new.issue_by ELSE NULL END
+    );
+END;

@@ -69,11 +69,11 @@
                 </li>
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                <a class="nav-link" href="/list_items">View Stock</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/add_items">Add item</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/list_history">List History</a>
+               </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
@@ -87,12 +87,12 @@
                 <li><a href="/accounts/login">Login</a></li>
               {% endif %}
               </ul>
+              <a href="#"><div id="version-display" data-toggle="modal" data-target="#myModal">SMIS Ver: 1.0</div></a>
         </div>
     </nav>
 
     <main role="main" class="container">
         <div class="jumbotron">
-            <h1 class="pb-4">{{ title }}</h1>
             {% block content %}
             {% endblock content%}
         </div>
@@ -148,6 +148,36 @@
           </ul>
         </div>
     </main>
+
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+            <div class="modal-content">
+              
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    <h4 class="modal-title">System Information</h4>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="dev-info">
+                      <p class=""><b>STOCK MANAGEMENT INFORMATION SYSTEMS</b></p>
+                      <p>VERSION: 1.O</p><br>
+
+                      <p class="modal-header">DEVELOPER:</p>
+                      <p>Roberto Georges</p>
+                      <p>Portfolio: <a href="https://roberto-georges.vercel.app/">roberto-georges</a></p>
+                      <p><img src="/static/img/logo.png" alt="Logo"></p>             
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+      </div>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="header pt-0">
+        {{title}}
+    </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method='POST' action=''>
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value='Search'/>
+    </form>
+   <br>
+
+   <div class="display_table">
+        <table class='table'>
+        <thead>
+            <tr>
+            <th>COUNT</th>
+            <th>ID</th>
+            <th>CATEGORY</th>
+            <th>ITEM NAME</th>
+            <th>QUANTITY IN STORE</th>
+            <th>ISSUE QUANTITY</th>
+            <th>ISSUE BY</th>
+            <th>RECEIVE QUANTITY</th>
+            <th>RECEIVE BY</th>
+            <th>LAST UPDATED</th>
+            </tr>
+        </thead>
+        {% for instance in queryset %}
+            <tr>
+
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.id}}</td>
+            <td>{{instance.category}}</td>
+            <td>{{instance.item_name}}</td>
+            <td>{{instance.quantity}}</td>
+            <td>{{instance.issue_quantity}}</td>
+            <td>{{ instance.issue_by }}</td>
+            <td>{{instance.receive_quantity}}</td>
+            <td>{{ instance.receive_by }}</td>
+            <td>{{instance.last_updated}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}
