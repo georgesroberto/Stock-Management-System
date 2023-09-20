@@ -2,7 +2,7 @@
 
 {% load bootstrap5 %}
 
-{% block content %}
+{% block context %}
     <div class="header p-2 mb-3">
         {{title}}
     </div>
@@ -15,24 +15,22 @@
         </ul>
     {% endif %}
 
-    <div class="row">
-        <div class="col-2">
-            <form method='POST' action='' class="">
+    <div class="row"><!--Start of row-->
+
+        <div class="col-sm-2"><!--Start of first col-->
+            <form method='POST' action=''>
                 {% csrf_token %}
-                <div class="row">  
-                    {% for field in form %}
-                    <div class="form-group">
+                <h4>{{ title }}</h4>
+                {{ form.media }}
+                {% for field in form %}
                     {% bootstrap_field field %}
-                
-                    </div>
-                    {% endfor %}
+                {% endfor %}
+              <input class="btn btn-primary mybutton " type="submit" value='Search'/>
+            </form><br><br>
+        </div><!--End of first col-->
 
-                    </div>
-                <input class="btn btn-info" type="submit" value='Search'/>
-            </form><br>
-        </div>
 
-        <div class="col-10">
+        <div class="col-sm-8">
             <div class="display-table">
                 <table class="table">
                     <thead>
@@ -56,7 +54,7 @@
                         <td><a href="{% url 'update_item' instance.id %}">{{instance.item_name}}</a></td>
                         <td>
                             {% if instance.quantity <= instance.reorder_level %}
-                                <a href="{% url 'stock_detail' instance.id %}" style="background-color: orange;">{{instance.quantity}}</a>
+                                <a href="{% url 'stock_detail' instance.id %}" style="color: red; background-color: white; ">{{instance.quantity}}</a>
                             {% else %}
                                 <a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a>
                             {% endif %}
@@ -70,5 +68,10 @@
                 </table>
             </div>
         </div>
+
+        <div class="col-sm-2">
+            <a href="/add_items"><div class="btn btn-primary mybutton"><i class="fas fa-plus"></i> Add Items</div></a><br><br>
+            <a href="/list_history"><div class="btn btn-primary mybutton"><i class="fas fa-list"></i> History</div></a><br><br>
+        </div>
     </div>
-{% endblock content %}
+{% endblock context %}

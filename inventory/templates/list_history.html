@@ -3,8 +3,8 @@
 {% load bootstrap5 %}
 
 {% block content %}
-    <div class="header pt-0">
-        {{title}}
+    <div class="header mb-4">
+        {{header}}
     </div>
 
     {% if messages %}
@@ -15,45 +15,53 @@
         </ul>
     {% endif %}
 
-    <form method='POST' action=''>
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value='Search'/>
-    </form>
-   <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <form method='POST' action='' class="">
+                {% csrf_token %}
 
-   <div class="display_table">
-        <table class='table'>
-        <thead>
-            <tr>
-            <th>COUNT</th>
-            <th>ID</th>
-            <th>CATEGORY</th>
-            <th>ITEM NAME</th>
-            <th>QUANTITY IN STORE</th>
-            <th>ISSUE QUANTITY</th>
-            <th>ISSUE BY</th>
-            <th>RECEIVE QUANTITY</th>
-            <th>RECEIVE BY</th>
-            <th>LAST UPDATED</th>
-            </tr>
-        </thead>
-        {% for instance in queryset %}
-            <tr>
+                {% for field in form %}
+                {% bootstrap_field field %}
+                {% endfor %}
 
-            <td>{{forloop.counter}}</td>
-            <td>{{instance.id}}</td>
-            <td>{{instance.category}}</td>
-            <td>{{instance.item_name}}</td>
-            <td>{{instance.quantity}}</td>
-            <td>{{instance.issue_quantity}}</td>
-            <td>{{ instance.issue_by }}</td>
-            <td>{{instance.receive_quantity}}</td>
-            <td>{{ instance.receive_by }}</td>
-            <td>{{instance.last_updated}}</td>
-            </tr>
-        {% endfor %}
-        </table>
+                <input class="btn btn-info mybutton" type="submit" value='Search | Export'/>
+            </form><br>
+            <a href="/list_items"><div class="btn btn-primary mybutton"><i class="fas fa-list"></i> Stock</div></a><br>
+        </div>
+
+        <div class="col-sm-10">
+            <div class="display_table">
+                <table class='table'>
+                <thead>
+                    <tr>
+                    <th>COUNT</th>
+                    <th>CATEGORY</th>
+                    <th>ITEM NAME</th>
+                    <th>QUANTITY IN STORE</th>
+                    <th>ISSUED QUANTITY</th>
+                    <th>ISSUED BY</th>
+                    <th>RECEIVED QUANTITY</th>
+                    <th>RECEIVED BY</th>
+                    <th>LAST UPDATED</th>
+                    </tr>
+                </thead>
+
+                {% for instance in queryset %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{instance.category}}</td>
+                        <td>{{instance.item_name}}</td>
+                        <td>{{instance.quantity}}</td>
+                        <td>{{instance.issue_quantity}}</td>
+                        <td>{{ instance.issue_by }}</td>
+                        <td>{{instance.receive_quantity}}</td>
+                        <td>{{ instance.receive_by }}</td>
+                        <td>{{instance.last_updated}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}

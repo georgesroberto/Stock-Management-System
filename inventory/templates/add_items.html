@@ -4,20 +4,22 @@
 
 {% block context %}
 
-<form method='POST' action=''>
-    {% csrf_token %}
-    <div class="container">
-        <div class="row">
-            <h1 class="p-2">{{ title }}</h1>
-            {{ form.media }}
-            {% for field in form %}
-            <div class="col-12">
-                {% bootstrap_field field %}
+    <div class="row"><!--Start of row-->
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"><!--Start of col-->
+            <div class="display_table">
+                <form method='POST' action=''>
+                    {% csrf_token %}
+                    <h1 class="p-2">{{ title }}</h1>
+                    {{ form.media }}
+                    {% for field in form %}
+                        {% bootstrap_field field %}
+                    {% endfor %}
+                <input class="btn btn-primary" type="submit" value='Save'/>
+                </form>
             </div>
-            {% endfor %}
-            <input class="btn btn-info" type="submit" value='Save' class="btn-outline-info"/>
-        </div> 
-    </div>   
-</form>
+        </div><!--End of col-->
+        <div class="col-sm-4"></div>
+    </div><!--End of row-->
 
 {% endblock context %}
