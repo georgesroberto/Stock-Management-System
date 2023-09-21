@@ -227,29 +227,8 @@ td{
   width: 100%;
 }
 
-/*Table paination styling*/
-.paging-nav {
-  text-align: right;
-  padding-top: 2px;
-  font-size: 20px;
-  padding-bottom: 10px;
-}
 
-.paging-nav a {
-  margin: auto 1px;
-  text-decoration: none;
-  display: inline-block;
-  padding: 1px 7px;
-  background: #3287a8;
-  color: white;
-  border-radius: 100px;
-}
 
-.paging-nav .selected-page {
-  font-weight: bold;
-  color: #dc3545;
-}
-/* End Table paination styling*/
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
