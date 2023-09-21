@@ -23,13 +23,11 @@ def list_items(request):
         item_name = request.POST.get('item_name')
         
         # Create an initial queryset
-        queryset = Stock.objects.all()
+        queryset = StockHistory.objects.filter(item_name__icontains=form['item_name'].value())
 
         # Apply filters if provided
-        if category:
-            queryset = queryset.filter(category__name__icontains=category)
-        if item_name:
-            queryset = queryset.filter(item_name__icontains=item_name)
+        if (category != ''):
+            queryset = queryset.filter(category_id=category)
 
         stockList = queryset
         if form['export_to_CSV'].value() == True:
@@ -76,7 +74,7 @@ def add_items(request):
     }
 
     return render(request, 'add_items.html', context)
-
+    
 
 @login_required
 def update_item(request, pk):
