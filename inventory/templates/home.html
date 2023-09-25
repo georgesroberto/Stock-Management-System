@@ -1,11 +1,10 @@
 {% extends "base.html" %}
+{%  load static %}
 
 {% block context %}
-    <div class="col-1"></div>
-    <div class="col-10 p-4 text-center">
+    <div class="col-12 p-4 text-center">
         <h2>STOCK MANAGEMENT INFORMATION SYSTEM</h2>
-        <h4 class="p-2">Welcome Home</h4>
-        <p>Welcome to our advanced Stock Management System, a comprehensive tool engineered to simplify your inventory management and enhance your business operations. Our intuitive platform enables you to monitor stock levels in real-time, making it easier to track and maintain your inventory. With our system, you can efficiently manage stock levels, reduce overstocking, and avoid stockouts through manual adjustments. Experience a new level of inventory control – join us today and start improving your business's stock management processes.</p>
+        <img src="{% static 'img/home.png' %}" style="width: 40%;" alt="smis">
+        <p class="p-2">Welcome to our advanced Stock Management System, a comprehensive tool engineered to simplify your inventory management and enhance your business operations. Our intuitive platform enables you to monitor stock levels in real-time, making it easier to track and maintain your inventory. With our system, you can efficiently manage stock levels, reduce overstocking, and avoid stockouts through manual adjustments. Experience a new level of inventory control – join us today and start improving your business's stock management processes.</p>
     </div>
-    <div class="col-1"></div>
 {% endblock context %}
