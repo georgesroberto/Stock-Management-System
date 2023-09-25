@@ -52,10 +52,10 @@
               </li>
             </ul>
             <ul>
-              <li><a href="/accounts/logout"><button class="btn btn-info"><i class="fas fa-exit"></i>{{ user }} | Logout</button></a></li>
+              <li><a href="/accounts/logout"><button class="btn btn-danger"><i class="fas fa-exit"></i>{{ user }} | Logout</button></a></li>
               {% else %}
-              <li><a href="/accounts/login"><i class="fas fa-enter"></i> Login</a></li>
-            {% endif %}
+              <li><a href="/accounts/login"><button class="btn btn-primary"><i class="fas fa-enter"></i>Login</button></a></li>
+              {% endif %}
             </ul>
 
             <a href="#"><div id="version-display" data-toggle="modal" data-target="#myModal">SMIS Ver: 1.0</div></a>
