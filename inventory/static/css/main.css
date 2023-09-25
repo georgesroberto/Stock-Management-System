@@ -227,6 +227,10 @@ td{
   width: 100%;
 }
 
+td, td a{
+  color: black;
+  font-weight: bolder;
+}
 
 
 .bd-placeholder-img {
@@ -242,8 +246,4 @@ td{
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
-}
-
-a{
-  color: black;
 }
