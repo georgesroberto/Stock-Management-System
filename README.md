@@ -35,11 +35,11 @@ Below is a short preview of how the system looks like:<br>
 
 ### Languages
   - Python
-  - HTML/CSS
+  - HTML/CSS/Bootstrap
+  - SQLite
   
 ### Frameworks
 - Django
-- Bootstrap
 
 ## User Journey
 1. Create account
