@@ -21,11 +21,8 @@ def list_items(request):
     if request.method == 'POST':
         category = request.POST.get('category')
         item_name = request.POST.get('item_name')
-        
-        # Create an initial queryset
         queryset = StockHistory.objects.filter(item_name__icontains=form['item_name'].value())
 
-        # Apply filters if provided
         if (category != ''):
             queryset = queryset.filter(category_id=category)
 
@@ -58,12 +55,9 @@ def add_items(request):
         category_name = form.cleaned_data['category']
         quantity = form.cleaned_data['quantity']
 
-        # Check if the category already exists
         existing_category, created = Category.objects.get_or_create(name=category_name)
 
-        # Create the new item with the existing or new category
         Stock.objects.create(item_name=item_name, category=existing_category, quantity=quantity)
-
         messages.success(request, 'Successfully Saved')
         
         return redirect('list_items')
@@ -86,7 +80,7 @@ def update_item(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated')
-            return redirect('list_items')  # Use the named URL 'list_items'
+            return redirect('list_items') 
 
     context = {
         'form': form,
@@ -102,7 +96,7 @@ def delete_item(request, pk):
         item_name = stock_instance.item_name
         stock_instance.delete()
         messages.success(request, f'Successfully Deleted: {item_name} ')
-        return redirect('/list_items')  # Use the named URL 'list_items'
+        return redirect('/list_items')  
     
     return render(request, 'delete_item.html', {'stock_instance': stock_instance})
 
@@ -114,7 +108,6 @@ def stock_detail(request, pk):
 		"queryset": queryset,
 	}
 	return render(request, "stock_detail.html", context)
-from django.contrib import messages
 
 
 @login_required
@@ -129,10 +122,8 @@ def issue_items(request, pk):
         messages.success(request, "Issued SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now left in Store")
         instance.save()
         
-        # Redirect to the stock detail page after issuing.
         return redirect('/stock_detail/' + str(instance.id))
 
-    # If the form is not valid, render the form again with the context.
     context = {
         "title": 'Issue ' + str(queryset.item_name),
         "queryset": queryset,
@@ -146,6 +137,7 @@ def issue_items(request, pk):
 def receive_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     form = ReceiveForm(request.POST or None, instance=queryset)
+
     if form.is_valid():
         instance = form.save(commit=False)
         instance.issue_quantity = 0
@@ -153,10 +145,8 @@ def receive_items(request, pk):
         instance.save()
         messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now in Store")
         
-        # Redirect to the stock detail page after receiving.
         return redirect('/stock_detail/' + str(instance.id))
 
-    # If the form is not valid, render the form again with the context.
     context = {
         "title": 'Receive ' + str(queryset.item_name),
         "instance": queryset,
@@ -184,7 +174,7 @@ def reorder_level(request, pk):
 
 
 @login_required
-def list_history(request):
+def list_history(request):  
     header = 'History Data'
     queryset = StockHistory.objects.all()
     form = StockHistorySearchForm(request.POST or None)
